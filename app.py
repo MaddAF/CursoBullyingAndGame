@@ -73,6 +73,4 @@ def logout():
 
 if __name__ == "__main__":
     
-    with db.engine.connect() as conn:
-        conn.execute('ALTER TABLE "user" ALTER COLUMN password_hash TYPE TEXT;')
     serve(app, host="0.0.0.0", port=8080)
