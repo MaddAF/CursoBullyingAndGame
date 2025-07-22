@@ -15,3 +15,16 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+from sqlalchemy import inspect
+
+def recreate_user_table_if_needed():
+    inspector = inspect(db.engine)
+    if "user" in inspector.get_table_names():
+        print("Tabela 'user' existe. Removendo...")
+        User.__table__.drop(db.engine)
+        print("Tabela 'user' removida com sucesso.")
+
+    print("Criando tabela 'user' com o schema atualizado...")
+    User.__table__.create(db.engine)
+    print("Tabela 'user' criada com sucesso.")
