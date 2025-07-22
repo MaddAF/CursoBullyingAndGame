@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for, flash
 from models import db, User
 from waitress import serve
+
 import os
 
 app = Flask(__name__)
@@ -68,6 +69,10 @@ def logout():
     session.pop("user_id", None)
     flash("You have been logged out.")
     return redirect(url_for("login"))
+    
 
 if __name__ == "__main__":
+    
+    with db.engine.connect() as conn:
+        conn.execute('ALTER TABLE "user" ALTER COLUMN password_hash TYPE TEXT;')
     serve(app, host="0.0.0.0", port=8080)
