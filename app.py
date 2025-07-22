@@ -5,15 +5,35 @@ import os
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/Modulo1")
 def home():
     return render_template("index.html")
+
+
+
+app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")  # Change in production
+
+# Replace with your actual Render PostgreSQL URL
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "postgresql://user:pass@localhost/dbname")
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+
+# Ensure tables are created
+with app.app_context():
+    db.create_all()
+
+@app.route("/")
+def home():
+    if "user_id" in session:
+        user = User.query.get(session["user_id"])
+        return render_template("home.html", user=user)
+    return redirect(url_for("login"))
 
 @app.route("/Game")
 def game():
     return render_template("game.html")
-
-
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
