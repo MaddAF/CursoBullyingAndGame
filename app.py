@@ -72,10 +72,7 @@ def logout():
     
 
 if __name__ == "__main__":
-    with app.app_context():
-        # ONE-TIME safe column fix for password_hash
-        with db.engine.connect() as conn:
-            conn.execute('ALTER TABLE "user" ALTER COLUMN password_hash TYPE TEXT;')
-
-    from waitress import serve
+    
+    with db.engine.connect() as conn:
+        conn.execute('ALTER TABLE "user" ALTER COLUMN password_hash TYPE TEXT;')
     serve(app, host="0.0.0.0", port=8080)
