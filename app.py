@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for, flash
 from models import db, User
 from waitress import serve
+import models
 
 import os
 
@@ -24,6 +25,7 @@ db.init_app(app)
 # Ensure tables are created
 with app.app_context():
     db.create_all()
+    models.recreate_user_table_if_needed()
 
 @app.route("/")
 def home():
@@ -69,7 +71,7 @@ def logout():
     session.pop("user_id", None)
     flash("You have been logged out.")
     return redirect(url_for("login"))
-    
+
 
 if __name__ == "__main__":
     
