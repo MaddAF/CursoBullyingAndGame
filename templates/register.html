@@ -54,6 +54,11 @@
             <input type="text" id="telefone_responsavel" name="telefone_responsavel" placeholder="Telefone do Responsável">
         </div>
 
+        <div>
+            <label for="is_admin">Admin:</label>
+            <input type="checkbox" id="is_admin" name="is_admin">
+        </div>
+
         <button type="submit">Registrar</button>
     </form>
     <p>Já tem uma conta? <a href="{{ url_for('login') }}">Entrar</a></p>
