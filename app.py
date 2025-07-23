@@ -5,12 +5,6 @@ import models
 
 import os
 
-app = Flask(__name__)
-
-@app.route("/Modulo1")
-def home():
-    return render_template("index.html")
-
 
 
 app = Flask(__name__)
@@ -72,6 +66,17 @@ def logout():
     flash("You have been logged out.")
     return redirect(url_for("login"))
 
+@app.route("/modules")
+def modules_hub():
+    return render_template("modules_hub.html")
+
+@app.route("/modulo1")
+def modulo1():
+    return render_template("modulo1.html")
+
+@app.route("/modulo2")
+def modulo2():
+    return render_template("modulo2.html")
 
 if __name__ == "__main__":
     
