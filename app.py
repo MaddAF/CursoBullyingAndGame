@@ -3,6 +3,7 @@ from models import db, User
 from waitress import serve
 import models
 import os
+import time
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
@@ -22,11 +23,10 @@ def add_header(response):
     return response
 
 @app.context_processor
-def inject_user():
+def inject_user_and_cache_buster():
     user_id = session.get('user_id')
-    if user_id:
-        return dict(user=User.query.get(user_id))
-    return dict(user=None)
+    user = User.query.get(user_id) if user_id else None
+    return dict(user=user, cache_buster=int(time.time()))
 
 @app.route("/")
 def index():
