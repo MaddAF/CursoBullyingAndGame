@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Simple Site</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <iframe src="https://gamma.app/embed/i8tatd8uogajn9y" style="width: 700px; max-width: 100%; height: 450px" allow="fullscreen" title="Módulo 2: Empatia - A Conexão Humana Essencial"></iframe>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Módulo 2: Empatia{% endblock %}
+
+{% block content %}
+    <h1>Módulo 2: Empatia - A Conexão Humana Essencial</h1>
+    <div class="module-content">
+        <iframe src="https://gamma.app/embed/i8tatd8uogajn9y" style="width: 100%; height: 600px;" allow="fullscreen" title="Módulo 2: Empatia - A Conexão Humana Essencial"></iframe>
+    </div>
+{% endblock %}

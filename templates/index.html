@@ -1,11 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Simple Site</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Início{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>Bem-vindo à Plataforma de Soft Skills</h1>
+        <p>Aprenda e aprimore suas soft skills com nossos módulos interativos.</p>
+        <p><a href="{{ url_for('register') }}" class="button">Começar</a></p>
+    </header>
+
+    <section>
+        <h2>Sobre Nós</h2>
+        <p>Nossa plataforma é projetada para ajudá-lo a desenvolver habilidades interpessoais essenciais para o crescimento pessoal e profissional. Oferecemos uma variedade de módulos cobrindo tópicos como comunicação, trabalho em equipe, liderança e muito mais.</p>
+    </section>
+
+    <section>
+        <h2>Nossos Módulos</h2>
+        <div class="module-list">
+            <div class="module-item">
+                <h3>Comunicação</h3>
+                <p>Melhore suas habilidades de comunicação.</p>
+            </div>
+            <div class="module-item">
+                <h3>Trabalho em Equipe</h3>
+                <p>Aprenda a trabalhar efetivamente em equipe.</p>
+            </div>
+            <div class="module-item">
+                <h3>Liderança</h3>
+                <p>Desenvolva seu potencial de liderança.</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
