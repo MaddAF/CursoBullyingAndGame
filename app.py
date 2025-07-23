@@ -1,26 +1,31 @@
-from flask import Flask, render_template, request, redirect, session, url_for, flash
+from flask import Flask, render_template, request, redirect, session, url_for, flash, make_response
 from models import db, User
 from waitress import serve
 import models
 import os
 
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")  # Change in production
+app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "postgresql://user:pass@localhost/dbname")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
-# Ensure tables are created
 with app.app_context():
     db.create_all()
+
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    return response
 
 @app.context_processor
 def inject_user():
     user_id = session.get('user_id')
     if user_id:
-        user = User.query.get(user_id)
-        return dict(user=user)
+        return dict(user=User.query.get(user_id))
     return dict(user=None)
 
 @app.route("/")
@@ -33,7 +38,7 @@ def home():
         return redirect(url_for("login"))
     return render_template("home.html")
 
-@app.route("/Game")
+@app.route("/game")
 def game():
     if "user_id" not in session:
         return redirect(url_for("login"))
@@ -45,7 +50,6 @@ def register():
         return redirect(url_for('home'))
 
     if request.method == "POST":
-        # (form processing logic remains the same)
         username = request.form["username"]
         password = request.form["password"]
         nome = request.form["nome"]
@@ -134,7 +138,7 @@ def admin():
         flash("Por favor, faça o login para acessar esta página.")
         return redirect(url_for("login"))
     
-    user = User.query.get(session["user_id"])
+    user = User.query.get(session.get("user_id"))
     if not user or not user.is_admin:
         flash("Acesso não autorizado.")
         return redirect(url_for("home"))
