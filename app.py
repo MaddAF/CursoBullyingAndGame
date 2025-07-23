@@ -41,10 +41,20 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+        nome = request.form["nome"]
+        telefone = request.form["telefone"]
+        idade = request.form["idade"]
+        escola = request.form["escola"]
+        nivel = request.form["nivel"]
+        email = request.form["email"]
+        nome_responsavel = request.form["nome_responsavel"]
+        telefone_responsavel = request.form["telefone_responsavel"]
+
         if User.query.filter_by(username=username).first():
             flash("Username already exists.")
             return redirect(url_for("register"))
-        user = User(username=username)
+            
+        user = User(username=username, nome=nome, telefone=telefone, idade=idade, escola=escola, nivel=nivel, email=email, nome_responsavel=nome_responsavel, telefone_responsavel=telefone_responsavel)
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
@@ -81,6 +91,20 @@ def modulo1():
 @app.route("/modulo2")
 def modulo2():
     return render_template("modulo2.html")
+
+@app.route("/admin")
+def admin():
+    if "user_id" not in session:
+        flash("Please login to access this page.")
+        return redirect(url_for("login"))
+    
+    user = User.query.get(session["user_id"])
+    if not user or not user.is_admin:
+        flash("Unauthorized access.")
+        return redirect(url_for("home")) # or wherever you want to redirect non-admins
+
+    users = User.query.all()
+    return render_template("admin.html", users=users)
 
 if __name__ == "__main__":
     

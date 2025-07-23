@@ -12,6 +12,9 @@
             <a href="{{ url_for('index') }}">Início</a>
             {% if user %}
             <a href="{{ url_for('modules_hub') }}">Módulos</a>
+            {% if user.is_admin %}
+            <a href="{{ url_for('admin') }}">Admin</a>
+            {% endif %}
             <a href="{{ url_for('logout') }}">Sair</a>
             {% else %}
             <a href="{{ url_for('login') }}">Entrar</a>
