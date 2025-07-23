@@ -1,78 +1,82 @@
-{% extends "base.html" %}
-{% block title %}Bullying Gameficado{% endblock %}
-
-{% block container_class %}module-container{% endblock %}
-
-{% block content %}
-<div id="unity-container" class="unity-desktop">
-  <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
-  <div id="unity-loading-bar">
-    <div id="unity-logo"></div>
-    <div id="unity-progress-bar-empty">
-      <div id="unity-progress-bar-full"></div>
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity Web Player | Bullying Gameficado</title>
+    <link rel="shortcut icon" href="/static/NewBuild2/TemplateData/favicon.ico">
+    <link rel="stylesheet" href="/static/NewBuild2/TemplateData/style.css">
+    <style>
+      /* Ensure the game covers the entire screen */
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Hide scrollbars */
+      }
+      #unity-container {
+        width: 100% !important;
+        height: 100% !important;
+      }
+      #unity-canvas {
+        width: 100% !important;
+        height: 100% !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
     </div>
-  </div>
-  <div id="unity-warning"></div>
-</div>
+    <script>
+      function attemptLockScreen() {
+        if (screen.orientation && typeof screen.orientation.lock === 'function') {
+          screen.orientation.lock('landscape').catch(function(error) {
+            console.log("Orientation lock failed:", error);
+          });
+        }
+      }
 
-<script>
-  var canvas = document.querySelector("#unity-canvas");
+      window.addEventListener('load', attemptLockScreen);
 
-  function unityShowBanner(msg, type) {
-    var warningBanner = document.querySelector("#unity-warning");
-    function updateBannerVisibility() {
-      warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
-    }
-    var div = document.createElement('div');
-    div.innerHTML = msg;
-    warningBanner.appendChild(div);
-    if (type == 'error') div.style = 'background: red; padding: 10px;';
-    else {
-      if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-      setTimeout(function() {
-        warningBanner.removeChild(div);
-        updateBannerVisibility();
-      }, 5000);
-    }
-    updateBannerVisibility();
-  }
 
-  var buildUrl = "/static/NewBuild2/Build";
-  var loaderUrl = buildUrl + "/NewBuild2.loader.js";
-  var config = {
-    arguments: [],
-    dataUrl: buildUrl + "/NewBuild2.data",
-    frameworkUrl: buildUrl + "/NewBuild2.framework.js",
-    codeUrl: buildUrl + "/NewBuild2.wasm",
-    streamingAssetsUrl: "StreamingAssets",
-    companyName: "IGF",
-    productName: "Bullying Gameficado",
-    productVersion: "2.0",
-    showBanner: unityShowBanner,
-  };
+      var canvas = document.querySelector("#unity-canvas");
+      var buildUrl = "/static/NewBuild2/Build";
+      var loaderUrl = buildUrl + "/NewBuild2.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/NewBuild2.data",
+        frameworkUrl: buildUrl + "/NewBuild2.framework.js",
+        codeUrl: buildUrl + "/NewBuild2.wasm",
+        companyName: "IGF",
+        productName: "Bullying Gameficado",
+        productVersion: "2.0",
+      };
 
-  if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-    var meta = document.createElement('meta');
-    meta.name = 'viewport';
-    meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-    document.getElementsByTagName('head')[0].appendChild(meta);
-    document.querySelector("#unity-container").className = "unity-mobile";
-    canvas.className = "unity-mobile";
-  }
+      document.querySelector("#unity-loading-bar").style.display = "block";
 
-  document.querySelector("#unity-loading-bar").style.display = "block";
-
-  var script = document.createElement("script");
-  script.src = loaderUrl;
-  script.onload = () => {
-    createUnityInstance(canvas, config, (progress) => {
-      document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
-    }).then((unityInstance) => {
-      document.querySelector("#unity-loading-bar").style.display = "none";
-    }).catch((message) => {
-      alert(message);
-    });
-  };
-  document.body.appendChild(script);
-</script>
-{% endblock %}
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          document.querySelector("#unity-loading-bar").style.display = "none";
+          // --- AUTO FULLSCREEN ---
+          unityInstance.SetFullscreen(1);
+          // ---                ---
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>
