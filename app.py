@@ -93,6 +93,18 @@ def modulo1():
 def modulo2():
     return render_template("modulo2.html")
 
+@app.route("/modulo3")
+def modulo3():
+    return render_template("modulo3.html")
+
+@app.route("/modulo4")
+def modulo4():
+    return render_template("modulo4.html")
+
+@app.route("/modulo5")
+def modulo5():
+    return render_template("modulo5.html")
+
 @app.route("/admin")
 def admin():
     if "user_id" not in session:
@@ -110,4 +122,3 @@ def admin():
 if __name__ == "__main__":
     
     serve(app, host="0.0.0.0", port=8080)
-Ye
