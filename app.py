@@ -49,12 +49,13 @@ def register():
         email = request.form["email"]
         nome_responsavel = request.form["nome_responsavel"]
         telefone_responsavel = request.form["telefone_responsavel"]
+        is_admin = "is_admin" in request.form
 
         if User.query.filter_by(username=username).first():
             flash("Username already exists.")
             return redirect(url_for("register"))
             
-        user = User(username=username, nome=nome, telefone=telefone, idade=idade, escola=escola, nivel=nivel, email=email, nome_responsavel=nome_responsavel, telefone_responsavel=telefone_responsavel)
+        user = User(username=username, nome=nome, telefone=telefone, idade=idade, escola=escola, nivel=nivel, email=email, nome_responsavel=nome_responsavel, telefone_responsavel=telefone_responsavel, is_admin=is_admin)
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
@@ -109,3 +110,4 @@ def admin():
 if __name__ == "__main__":
     
     serve(app, host="0.0.0.0", port=8080)
+Ye
