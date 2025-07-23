@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Simple Site</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <iframe src="https://gamma.app/embed/66upk8qpjjj0605" style="width: 100%; height:100%" allow="fullscreen" title="Módulo 1: O que é Bullying?"></iframe>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Módulo 1: O que é Bullying?{% endblock %}
+
+{% block content %}
+    <h1>Módulo 1: O que é Bullying?</h1>
+    <div class="module-content">
+        <iframe src="https://gamma.app/embed/66upk8qpjjj0605" style="width: 100%; height: 600px;" allow="fullscreen" title="Módulo 1: O que é Bullying?"></iframe>
+    </div>
+{% endblock %}

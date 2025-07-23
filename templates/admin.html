@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Admin - User Data{% endblock %}
+
+{% block content %}
+    <h1>Dados dos Usuários</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome de Usuário</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Idade</th>
+                <th>Escola</th>
+                <th>Nível</th>
+                <th>E-mail</th>
+                <th>Nome do Responsável</th>
+                <th>Telefone do Responsável</th>
+                <th>Progresso</th>
+                <th>É Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.nome }}</td>
+                <td>{{ user.telefone }}</td>
+                <td>{{ user.idade }}</td>
+                <td>{{ user.escola }}</td>
+                <td>{{ user.nivel }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.nome_responsavel }}</td>
+                <td>{{ user.telefone_responsavel }}</td>
+                <td>{{ user.progresso }}</td>
+                <td>{{ user.is_admin }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
