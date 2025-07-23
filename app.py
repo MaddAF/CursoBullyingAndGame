@@ -22,6 +22,10 @@ with app.app_context():
     models.recreate_user_table_if_needed()
 
 @app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/home")
 def home():
     if "user_id" in session:
         user = User.query.get(session["user_id"])
