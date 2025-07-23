@@ -56,7 +56,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password):
             session["user_id"] = user.id
-            return redirect(url_for("home"))
+            return redirect(url_for("modules_hub"))
         flash("Invalid credentials.")
     return render_template("login.html")
 
