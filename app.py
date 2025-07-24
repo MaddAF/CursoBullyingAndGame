@@ -4,7 +4,7 @@ from waitress import serve
 import models
 import os
 import time
-from certificateGenerator import gerar_certificado
+from certificateGenerator import gerar_certificado, gerarNomeArquivo
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
@@ -170,10 +170,11 @@ def download_certificate():
 
         try:
             certificate_buffer = gerar_certificado(user.nome, cpf)
+            download_name = gerarNomeArquivo(user.nome)
             return send_file(
                 certificate_buffer,
                 as_attachment=True,
-                download_name=f"certificado_{user.username}.pdf",
+                download_name=download_name,
                 mimetype='application/pdf'
             )
         except Exception as e:
