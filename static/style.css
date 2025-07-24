@@ -15,7 +15,7 @@ body {
 }
 
 h1, h2, h3 {
-    color: #800080;
+    color: #0077cc;
     text-align: center;
     margin-bottom: 1rem;
 }
@@ -25,7 +25,7 @@ p {
 }
 
 a {
-    color: #800080;
+    color: #0077cc;
     text-decoration: none;
 }
 
@@ -71,7 +71,7 @@ a:hover {
 }
 
 .module-item a {
-    color: #800080;
+    color: #0077cc;
     font-size: 1.2rem;
     font-weight: bold;
 }
@@ -95,7 +95,7 @@ select {
 
 button {
     width: 100%;
-    background-color: #800080;
+    background-color: #0077cc;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -105,7 +105,7 @@ button {
 }
 
 button:hover {
-    background-color: #660066;
+    background-color: #005fa3;
 }
 
 /* Full-screen module styling */
