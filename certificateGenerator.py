@@ -53,7 +53,7 @@ def gerar_certificado(nome_participante, cpf_usuario):
     # --- 1. CONFIGURAÇÕES ---
     base_dir = os.path.dirname(os.path.abspath(__file__))
     
-    tamanho_fonte_Nome = adaptFontSize(nome_participante, max_length=50, base_size=150, min_size=50)
+    tamanho_fonte_Nome = adaptFontSize(nome_participante, max_length=20, base_size=150, min_size=50)
     cor_fonte_RGB_Nome = (43, 121, 253)
     position_nome = (485, 650)
     nameFont_path = os.path.join(base_dir, "static/fonts/Handjet/static/Handjet-Medium.ttf")
