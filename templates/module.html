@@ -3,18 +3,48 @@
 {% block title %}{{ module.title }}{% endblock %}
 
 {% block content %}
+<style>
+    .module-navigation .btn {
+        padding: 10px 20px;
+        border-radius: 25px;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        transition: transform 0.2s;
+    }
+    .btn-primary {
+        background-color: #007bff;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+    }
+    .btn-success {
+        background-color: #28a745;
+    }
+    .btn:hover {
+        transform: scale(1.05);
+    }
+    iframe {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+    iframe::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+    }
+</style>
+
 <div class="module-content">
     <iframe src="{{ module.iframe_src }}" width="100%" height="600px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </div>
-<div class="module-navigation">
+<div class="module-navigation" style="text-align: center; margin-top: 20px;">
     {% if module.id > 1 %}
-        <a href="{{ url_for('module', module_id=module.id - 1) }}" class="btn btn-secondary">Módulo Anterior</a>
+        <a href="{{ url_for('module', module_id=module.id - 1) }}" class="btn btn-secondary">❮ Módulo Anterior</a>
     {% endif %}
     {% if module.id < modules_data|length %}
-        <a href="{{ url_for('module', module_id=module.id + 1) }}" class="btn btn-primary">Próximo Módulo</a>
+        <a href="{{ url_for('module', module_id=module.id + 1) }}" class="btn btn-primary">Próximo Módulo ❯</a>
     {% else %}
-        <a href="{{ url_for('congratulations') }}" class="btn btn-success">Finalizar e ver Certificado</a>
+        <a href="{{ url_for('congratulations') }}" class="btn btn-success">Finalizar e ver Certificado ★</a>
+        <a href="{{ url_for('game') }}" class="btn btn-primary" style="margin-left: 10px;">Jogar Agora! 🎮</a>
     {% endif %}
-    </div>
-
+</div>
 {% endblock %}
