@@ -1,59 +1,132 @@
 {% extends "base.html" %}
 
-{% block title %}Início{% endblock %}
+{% block title %}Início - Combata o Bullying{% endblock %}
 
 {% block content %}
 <style>
-    .video-banner {
-        width: 100%;
-        height: 400px;
-        overflow: hidden;
+    .hero-section {
         position: relative;
-    }
-    .video-banner video {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        height: 100vh; /* Full viewport height */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        overflow: hidden;
     }
-    .banner-overlay {
+
+    .hero-section .video-bg {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        color: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+        object-fit: cover;
+        z-index: -2;
     }
-    .modules-hub-link {
+
+    .hero-section .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6); /* Darker overlay for better contrast */
+        z-index: -1;
+    }
+
+    .hero-content {
+        max-width: 800px;
+        padding: 2rem;
+        animation: fadeInSlideUp 1s ease-out forwards;
+    }
+
+    @keyframes fadeInSlideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .main-heading {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        animation: fadeInSlideUp 1s ease-out 0.5s forwards;
+        opacity: 0;
+    }
+
+    .subheading {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        font-weight: 400;
+        animation: fadeInSlideUp 1s ease-out 1s forwards;
+        opacity: 0;
+    }
+
+    .cta-button {
         display: inline-block;
-        padding: 15px 30px;
-        background-color: #007bff;
+        padding: 18px 36px;
+        background-color: #007BFF;
         color: white;
         text-decoration: none;
-        border-radius: 5px;
-        font-size: 1.2em;
-        margin-top: 20px;
-        transition: background-color 0.3s;
+        border-radius: 50px; /* Rounded button */
+        font-size: 1.3rem;
+        font-weight: 600;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+        animation: fadeInSlideUp 1s ease-out 1.5s forwards;
+        opacity: 0;
     }
-    .modules-hub-link:hover {
+
+    .cta-button:hover {
+        transform: scale(1.05);
         background-color: #0056b3;
+        box-shadow: 0 8px 25px rgba(0, 123, 255, 0.6);
+    }
+
+    .trust-indicators {
+        margin-top: 3rem;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.8);
+        animation: fadeInSlideUp 1s ease-out 2s forwards;
+        opacity: 0;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .main-heading {
+            font-size: 2.5rem;
+        }
+        .subheading {
+            font-size: 1.2rem;
+        }
+        .cta-button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
     }
 </style>
 
-<div class="video-banner">
-    <video autoplay muted loop>
+<div class="hero-section">
+    <video autoplay muted loop class="video-bg">
         <source src="{{ url_for('static', filename='Video/Modulo-1-O-que-e-Bullying PDF.pdf.mp4') }}" type="video/mp4">
-        Your browser does not support the video tag.
+        Seu navegador não suporta a tag de vídeo.
     </video>
-    <div class="banner-overlay">
-        <h1>Bem-vindo, {{ user.username }}!</h1>
-        <p>Explore os módulos disponíveis para aprimorar suas soft skills.</p>
-        <a href="{{ url_for('modules_hub') }}" class="modules-hub-link">Ir para o Hub de Módulos</a>
+    <div class="overlay"></div>
+    <div class="hero-content">
+        <h1 class="main-heading">⚡ Combata o bullying com conhecimento. Torne-se um agente de mudança!</h1>
+        <p class="subheading">Aprenda a lidar com o bullying em apenas 20 minutos. Gratuito, online e com certificado.</p>
+        <a href="{{ url_for('modules_hub') }}" class="cta-button">Comece Agora – Curso Gratuito</a>
+        <div class="trust-indicators">
+            <p>+500 alunos impactados | Inclui certificado | Validado por educadores</p>
+        </div>
     </div>
 </div>
 {% endblock %}
