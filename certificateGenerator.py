@@ -31,14 +31,14 @@ def gerar_certificado(nome_participante, cpf_usuario):
     # --- 1. CONFIGURAÇÕES ---
     base_dir = os.path.dirname(os.path.abspath(__file__))
     
-    tamanho_fonte_Nome = 100
+    tamanho_fonte_Nome = 150
     cor_fonte_RGB_Nome = (43, 121, 253)
-    position_nome = (485, 800)
+    position_nome = (485, 700)
     nameFont_path = os.path.join(base_dir, "static/fonts/Handjet/static/Handjet-Medium.ttf")
 
     tamanho_fonte_Normal = 35
     cor_fonte_RGB_Normal = (71, 71, 71)
-    position_texto_Normal = (485, 870)
+    position_texto_Normal = (485, 820)
     fonte_path_Normal = os.path.join(base_dir, "static/fonts/lucida-console/lucon.ttf")
 
     template_path = os.path.join(base_dir, "static/Images/CErtificado.png")
