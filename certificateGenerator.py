@@ -15,6 +15,27 @@ def gerarNomeArquivo(nome_completo):
     nome_arquivo = f"{partes[0].lower()}_{iniciais}.pdf"
     return nome_arquivo
 
+
+def adaptFontSize(text, max_length=40, base_size=50, min_size=20):
+    """
+    Reduz o tamanho da fonte proporcionalmente se o texto exceder o comprimento máximo.
+    
+    Args:
+        text (str): O texto a ser exibido.
+        max_length (int): Comprimento ideal máximo antes de reduzir o tamanho.
+        base_size (int): Tamanho de fonte padrão.
+        min_size (int): Tamanho mínimo permitido.
+
+    Returns:
+        int: Tamanho de fonte ajustado.
+    """
+    length = len(text)
+    if length <= max_length:
+        return base_size
+    else:
+        scale = max(min_size / base_size, max_length / length)
+        return max(int(base_size * scale), min_size)
+
 # --- FUNÇÃO PRINCIPAL DE GERAÇÃO DE CERTIFICADO ---
 
 def gerar_certificado(nome_participante, cpf_usuario):
@@ -28,10 +49,11 @@ def gerar_certificado(nome_participante, cpf_usuario):
     Returns:
         io.BytesIO: Um buffer de bytes contendo o arquivo PDF do certificado.
     """
+
     # --- 1. CONFIGURAÇÕES ---
     base_dir = os.path.dirname(os.path.abspath(__file__))
     
-    tamanho_fonte_Nome = 150
+    tamanho_fonte_Nome = adaptFontSize(nome_participante, max_length=50, base_size=150, min_size=50)
     cor_fonte_RGB_Nome = (43, 121, 253)
     position_nome = (485, 650)
     nameFont_path = os.path.join(base_dir, "static/fonts/Handjet/static/Handjet-Medium.ttf")
