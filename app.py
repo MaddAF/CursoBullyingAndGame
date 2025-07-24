@@ -16,6 +16,14 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+modules_data = [
+    {"id": 1, "title": "Módulo 1: O que é Bullying?", "iframe_src": "https://wordwall.net/pt/embed/f9642055a7354341901804ce49944a33?themeId=49&templateId=5&fontStackId=0"},
+    {"id": 2, "title": "Módulo 2: Empatia - A Conexão Humana Essencial", "iframe_src": "https://wordwall.net/pt/embed/f9314486563e413e8392d04a62118a80?themeId=49&templateId=5&fontStackId=0"},
+    {"id": 3, "title": "Módulo 3: O Que Fazer? Ação Estratégica e Cidadania Digital", "iframe_src": "/static/NewBuild3/index.html"},
+    {"id": 4, "title": "Módulo 4: Cyber-Segurança - Ética, Legislação e Cidadania Digital", "iframe_src": "https://wordwall.net/pt/embed/f9314486563e413e8392d04a62118a80?themeId=49&templateId=5&fontStackId=0"},
+    {"id": 5, "title": "Módulo 5: Missão Final - Protagonismo, Ação Coletiva e Legado", "iframe_src": "https://wordwall.net/pt/embed/f9314486563e413e8392d04a62118a80?themeId=49&templateId=5&fontStackId=0"},
+]
+
 @app.after_request
 def add_header(response):
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
@@ -101,37 +109,19 @@ def logout():
 def modules_hub():
     if "user_id" not in session:
         return redirect(url_for('login'))
-    return render_template("modules_hub.html")
+    return redirect(url_for('module', module_id=1))
 
-@app.route("/modulo1")
-def modulo1():
+@app.route("/module/<int:module_id>")
+def module(module_id):
     if "user_id" not in session:
         return redirect(url_for('login'))
-    return render_template("modulo1.html")
 
-@app.route("/modulo2")
-def modulo2():
-    if "user_id" not in session:
-        return redirect(url_for('login'))
-    return render_template("modulo2.html")
+    module_info = next((m for m in modules_data if m['id'] == module_id), None)
 
-@app.route("/modulo3")
-def modulo3():
-    if "user_id" not in session:
-        return redirect(url_for('login'))
-    return render_template("modulo3.html")
-
-@app.route("/modulo4")
-def modulo4():
-    if "user_id" not in session:
-        return redirect(url_for('login'))
-    return render_template("modulo4.html")
-
-@app.route("/modulo5")
-def modulo5():
-    if "user_id" not in session:
-        return redirect(url_for('login'))
-    return render_template("modulo5.html")
+    if module_info:
+        return render_template("module.html", module=module_info, modules_data=modules_data)
+    else:
+        return "Módulo não encontrado", 404
 
 @app.route("/admin")
 def admin():
