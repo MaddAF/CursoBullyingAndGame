@@ -33,12 +33,12 @@ def gerar_certificado(nome_participante, cpf_usuario):
     
     tamanho_fonte_Nome = 150
     cor_fonte_RGB_Nome = (43, 121, 253)
-    position_nome = (485, 630)
+    position_nome = (485, 650)
     nameFont_path = os.path.join(base_dir, "static/fonts/Handjet/static/Handjet-Medium.ttf")
 
     tamanho_fonte_Normal = 35
     cor_fonte_RGB_Normal = (71, 71, 71)
-    position_texto_Normal = (485, 820)
+    position_texto_Normal = (485, 840)
     fonte_path_Normal = os.path.join(base_dir, "static/fonts/lucida-console/lucon.ttf")
 
     template_path = os.path.join(base_dir, "static/Images/CErtificado.png")
@@ -53,7 +53,7 @@ def gerar_certificado(nome_participante, cpf_usuario):
     # CORREÇÃO: Usando triple-quoted f-string para evitar o SyntaxError
     texto_normal_template = (
         f"Dono(a) do cpf: {cpf_usuario}"
-        "Completou o curso online: “Combata o bullying com conhecimento. "
+        " Completou o curso online: “Combata o bullying com conhecimento. "
         "Torne-se um agente de mudança!” com carga horária de 20 minutos."
     )
 
@@ -66,7 +66,7 @@ def gerar_certificado(nome_participante, cpf_usuario):
 
     desenho.text(position_nome, texto_nome, font=fonte_nome, fill=cor_fonte_RGB_Nome)
     
-    linhas_texto_normal = textwrap.wrap(texto_normal_template, width=40)
+    linhas_texto_normal = textwrap.wrap(texto_normal_template, width=50)
     output_texto_normal = "\n".join(linhas_texto_normal)
     desenho.text(position_texto_Normal, output_texto_normal, font=fonte_normal, fill=cor_fonte_RGB_Normal)
     
