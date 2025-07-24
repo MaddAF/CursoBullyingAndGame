@@ -29,7 +29,6 @@ def gerar_certificado(nome_participante, cpf_usuario):
         io.BytesIO: Um buffer de bytes contendo o arquivo PDF do certificado.
     """
     # --- 1. CONFIGURAÇÕES ---
-    # Corrigindo os paths para serem relativos ao diretório do projeto
     base_dir = os.path.dirname(os.path.abspath(__file__))
     
     tamanho_fonte_Nome = 50
@@ -50,10 +49,10 @@ def gerar_certificado(nome_participante, cpf_usuario):
 
     # --- 3. PREPARAÇÃO DOS TEXTOS ---
     texto_nome = nome_participante.upper()
+    
+    # CORREÇÃO: Usando triple-quoted f-string para evitar o SyntaxError
     texto_normal_template = (
-        f"Dono(a) do cpf: {cpf_usuario}
-
-"
+        f"Dono(a) do cpf: {cpf_usuario}"
         "Completou o curso online: “Combata o bullying com conhecimento. "
         "Torne-se um agente de mudança!” com carga horária de 20 minutos."
     )
@@ -68,8 +67,7 @@ def gerar_certificado(nome_participante, cpf_usuario):
     desenho.text(position_nome, texto_nome, font=fonte_nome, fill=cor_fonte_RGB_Nome)
     
     linhas_texto_normal = textwrap.wrap(texto_normal_template, width=72)
-    output_texto_normal = '
-'.join(linhas_texto_normal)
+    output_texto_normal = join(linhas_texto_normal)
     desenho.text(position_texto_Normal, output_texto_normal, font=fonte_normal, fill=cor_fonte_RGB_Normal)
     
     # --- 5. SALVAR EM MEMÓRIA ---
