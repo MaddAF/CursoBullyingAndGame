@@ -16,7 +16,7 @@ def gerarNomeArquivo(nome_completo):
     return nome_arquivo
 
 
-def adaptFontSize(text, max_length=40, base_size=50, min_size=20):
+def adaptFontSize(text, max_length=20, base_size=50, min_size=20):
     """
     Reduz o tamanho da fonte proporcionalmente se o texto exceder o comprimento máximo.
     
