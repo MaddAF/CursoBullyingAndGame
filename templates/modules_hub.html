@@ -3,27 +3,30 @@
 {% block title %}Hub de Módulos{% endblock %}
 
 {% block content %}
-    <h1>Hub de Módulos</h1>
-    <div class="module-list">
-        <div class="module-item">
-            <h3><a href="{{ url_for('modulo1') }}">Módulo 1: O que é Bullying?</a></h3>
-            <p>Aprenda sobre a definição e os impactos do bullying.</p>
-        </div>
-        <div class="module-item">
-            <h3><a href="{{ url_for('modulo2') }}">Módulo 2: Empatia - A Conexão Humana Essencial</a></h3>
-            <p>Desenvolva sua capacidade de se conectar com os outros.</p>
-        </div>
-        <div class="module-item">
-            <h3><a href="{{ url_for('modulo3') }}">Módulo 3: O Que Fazer? Ação Estratégica e Cidadania Digital</a></h3>
-            <p>Descubra como agir e promover a cidadania digital.</p>
-        </div>
-        <div class="module-item">
-            <h3><a href="{{ url_for('modulo4') }}">Módulo 4: Cyber-Segurança - Ética, Legislação e Cidadania Digital</a></h3>
-            <p>Entenda a importância da ética e da legislação no ambiente digital.</p>
-        </div>
-        <div class="module-item">
-            <h3><a href="{{ url_for('modulo5') }}">Módulo 5: Missão Final - Protagonismo, Ação Coletiva e Legado</a></h3>
-            <p>Assuma o protagonismo e deixe um legado de ação coletiva.</p>
+    <div class="contianer">
+
+        <h1>Hub de Módulos</h1>
+        <div class="module-list">
+            <div class="module-item">
+                <h3><a href="{{ url_for('modulo1') }}">Módulo 1: O que é Bullying?</a></h3>
+                <p>Aprenda sobre a definição e os impactos do bullying.</p>
+            </div>
+            <div class="module-item">
+                <h3><a href="{{ url_for('modulo2') }}">Módulo 2: Empatia - A Conexão Humana Essencial</a></h3>
+                <p>Desenvolva sua capacidade de se conectar com os outros.</p>
+            </div>
+            <div class="module-item">
+                <h3><a href="{{ url_for('modulo3') }}">Módulo 3: O Que Fazer? Ação Estratégica e Cidadania Digital</a></h3>
+                <p>Descubra como agir e promover a cidadania digital.</p>
+            </div>
+            <div class="module-item">
+                <h3><a href="{{ url_for('modulo4') }}">Módulo 4: Cyber-Segurança - Ética, Legislação e Cidadania Digital</a></h3>
+                <p>Entenda a importância da ética e da legislação no ambiente digital.</p>
+            </div>
+            <div class="module-item">
+                <h3><a href="{{ url_for('modulo5') }}">Módulo 5: Missão Final - Protagonismo, Ação Coletiva e Legado</a></h3>
+                <p>Assuma o protagonismo e deixe um legado de ação coletiva.</p>
+            </div>
         </div>
     </div>
 {% endblock %}

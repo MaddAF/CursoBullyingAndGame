@@ -3,17 +3,19 @@
 {% block title %}Início{% endblock %}
 
 {% block content %}
+<div class="container">
+
     <header>
         <h1>Bem-vindo à Plataforma de Soft Skills</h1>
         <p>Aprenda e aprimore suas soft skills com nossos módulos interativos.</p>
         <p><a href="{{ url_for('register') }}" class="button">Começar</a></p>
     </header>
-
+    
     <section>
         <h2>Sobre Nós</h2>
         <p>Nossa plataforma é projetada para ajudá-lo a desenvolver habilidades interpessoais essenciais para o crescimento pessoal e profissional. Oferecemos uma variedade de módulos cobrindo tópicos como comunicação, trabalho em equipe, liderança e muito mais.</p>
     </section>
-
+    
     <section>
         <h2>Nossos Módulos</h2>
         <div class="module-list">
@@ -31,4 +33,5 @@
             </div>
         </div>
     </section>
-{% endblock %}
+</div>
+    {% endblock %}
