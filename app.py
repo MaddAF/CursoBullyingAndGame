@@ -17,11 +17,11 @@ with app.app_context():
     db.create_all()
 
 modules_data = [
-    {"id": 1, "title": "Módulo 1: O que é Bullying?", "iframe_src": "https://wordwall.net/pt/embed/f9642055a7354341901804ce49944a33?themeId=49&templateId=5&fontStackId=0"},
-    {"id": 2, "title": "Módulo 2: Empatia - A Conexão Humana Essencial", "iframe_src": "https://wordwall.net/pt/embed/f9314486563e413e8392d04a62118a80?themeId=49&templateId=5&fontStackId=0"},
-    {"id": 3, "title": "Módulo 3: O Que Fazer? Ação Estratégica e Cidadania Digital", "iframe_src": "/static/NewBuild3/index.html"},
-    {"id": 4, "title": "Módulo 4: Cyber-Segurança - Ética, Legislação e Cidadania Digital", "iframe_src": "https://wordwall.net/pt/embed/f9314486563e413e8392d04a62118a80?themeId=49&templateId=5&fontStackId=0"},
-    {"id": 5, "title": "Módulo 5: Missão Final - Protagonismo, Ação Coletiva e Legado", "iframe_src": "https://wordwall.net/pt/embed/f9314486563e413e8392d04a62118a80?themeId=49&templateId=5&fontStackId=0"},
+    {"id": 1, "title": "Módulo 1: O que é Bullying?", "iframe_src": "https://gamma.app/embed/66upk8qpjjj0605"},
+    {"id": 2, "title": "Módulo 2: Empatia - A Conexão Humana Essencial", "iframe_src": "https://gamma.app/embed/i8tatd8uogajn9y"},
+    {"id": 3, "title": "Módulo 3: O Que Fazer?", "iframe_src": "https://gamma.app/embed/blfhf1mwmn401j8"},
+    {"id": 4, "title": "Módulo 4: Cyber-Segurança", "iframe_src": "https://gamma.app/embed/3mi05q4zcdj05pj"},
+    {"id": 5, "title": "Módulo 5: Missão Final", "iframe_src": "https://gamma.app/embed/gjxal9c1opw1z7h"},
 ]
 
 @app.after_request
