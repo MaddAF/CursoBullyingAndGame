@@ -40,6 +40,7 @@ a:hover {
     background-color: #333;
     color: #fff;
     padding: 1rem 0;
+    position: relative; /* Needed for positioning the menu icon */
 }
 
 .navbar .container {
@@ -56,6 +57,84 @@ a:hover {
 .navbar a:hover {
     text-decoration: none;
     background-color: #555;
+}
+
+/* Hamburger menu icon */
+.menu-icon {
+    display: none; /* Hidden by default, shown on mobile */
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.menu-icon .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
+/* Side menu styles */
+.side-menu {
+    height: 100%;
+    width: 0; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+}
+
+.side-menu a {
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+}
+
+.side-menu a:hover {
+    background-color: #555;
+}
+
+.side-menu .close-btn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: #fff;
+}
+
+/* When the side menu is open */
+.side-menu.open {
+    width: 250px;
+}
+
+/* Overlay when menu is open */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+}
+
+.overlay.active {
+    display: block;
 }
 
 .module-list {
@@ -128,19 +207,18 @@ button:hover {
     border: none; /* Remove iframe border */
 }
 
-
+/* Media queries for mobile responsiveness */
 @media (max-width: 768px) {
-    .navbar .container {
-        flex-direction: column;
+    .navbar .container .navbar-links {
+        display: none; /* Hide traditional navbar links */
     }
 
-    .navbar a {
-        display: block;
-        width: 100%;
-        text-align: center;
+    .menu-icon {
+        display: block; /* Show hamburger icon */
     }
 
-    .module-list {
-        grid-template-columns: 1fr;
+    /* Adjust main content when side menu is open to prevent scroll */
+    body.no-scroll {
+        overflow: hidden;
     }
 }

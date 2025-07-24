@@ -11,19 +11,44 @@
     <nav class="navbar">
         <div class="container">
             <a href="{{ url_for('index') }}">Início</a>
-            {% if user %}
-                <a href="{{ url_for('modules_hub') }}">Módulos</a>
-                {% if user.is_admin %}
-                    <a href="{{ url_for('admin') }}">Admin</a>
+            <div class="navbar-links">
+                {% if user %}
+                    <a href="{{ url_for('modules_hub') }}">Módulos</a>
+                    {% if user.is_admin %}
+                        <a href="{{ url_for('admin') }}">Admin</a>
+                    {% endif %}
+                    <a href="{{ url_for('logout') }}">Sair</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Entrar</a>
+                    <a href="{{ url_for('register') }}">Registrar</a>
                 {% endif %}
-                <a href="{{ url_for('logout') }}">Sair</a>
-            {% else %}
-                <a href="{{ url_for('login') }}">Entrar</a>
-                <a href="{{ url_for('register') }}">Registrar</a>
-            {% endif %}
+            </div>
+            <div class="menu-icon" onclick="openNav()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
         </div>
     </nav>
-    <div class="containerO {% block container_class %}{% endblock %}">
+
+    <div id="sideMenu" class="side-menu">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
+        <a href="{{ url_for('index') }}">Início</a>
+        {% if user %}
+            <a href="{{ url_for('modules_hub') }}">Módulos</a>
+            {% if user.is_admin %}
+                <a href="{{ url_for('admin') }}">Admin</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}">Sair</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Entrar</a>
+            <a href="{{ url_for('register') }}">Registrar</a>
+        {% endif %}
+    </div>
+
+    <div id="overlay" class="overlay" onclick="closeNav()"></div>
+
+    <div class="container {% block container_class %}{% endblock %}">
         {% block content %}
         {% endblock %}
     </div>
@@ -32,5 +57,19 @@
             <p>&copy; IGF - 2025. Todos os direitos reservados</p>
         </div>
     </footer>
+
+    <script>
+        function openNav() {
+            document.getElementById("sideMenu").style.width = "250px";
+            document.getElementById("overlay").classList.add("active");
+            document.body.classList.add("no-scroll");
+        }
+
+        function closeNav() {
+            document.getElementById("sideMenu").style.width = "0";
+            document.getElementById("overlay").classList.remove("active");
+            document.body.classList.remove("no-scroll");
+        }
+    </script>
 </body>
 </html>
