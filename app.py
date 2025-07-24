@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, redirect, session, url_for, flash, make_response
+from flask import Flask, render_template, request, redirect, session, url_for, flash, make_response, send_file
 from models import db, User
 from waitress import serve
 import models
 import os
 import time
+from certificateGenerator import gerar_certificado
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
@@ -145,6 +146,42 @@ def admin():
 
     users = User.query.all()
     return render_template("admin.html", users=users)
+
+@app.route("/congratulations")
+def congratulations():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+    return render_template("congratulations.html")
+
+@app.route("/download_certificate", methods=["GET", "POST"])
+def download_certificate():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+    
+    user = User.query.get(session.get("user_id"))
+    if not user:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        cpf = request.form.get("cpf")
+        if not cpf:
+            flash("Por favor, insira seu CPF para gerar o certificado.")
+            return redirect(url_for("congratulations"))
+
+        try:
+            certificate_buffer = gerar_certificado(user.nome, cpf)
+            return send_file(
+                certificate_buffer,
+                as_attachment=True,
+                download_name=f"certificado_{user.username}.pdf",
+                mimetype='application/pdf'
+            )
+        except Exception as e:
+            flash(f"Ocorreu um erro ao gerar o certificado: {e}")
+            return redirect(url_for("congratulations"))
+
+    return redirect(url_for("congratulations"))
+
 
 if __name__ == "__main__":
     serve(app, host="0.0.0.0", port=8080)
