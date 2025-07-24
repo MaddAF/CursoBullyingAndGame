@@ -3,20 +3,18 @@
 {% block title %}{{ module.title }}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>{{ module.title }}</h1>
-    <div class="module-content">
-        <iframe src="{{ module.iframe_src }}" width="100%" height="600px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-    </div>
-    <div class="module-navigation">
-        {% if module.id > 1 %}
-            <a href="{{ url_for('module', module_id=module.id - 1) }}" class="btn btn-secondary">Módulo Anterior</a>
-        {% endif %}
-        {% if module.id < modules_data|length %}
-            <a href="{{ url_for('module', module_id=module.id + 1) }}" class="btn btn-primary">Próximo Módulo</a>
-        {% else %}
-            <a href="{{ url_for('congratulations') }}" class="btn btn-success">Finalizar e ver Certificado</a>
-        {% endif %}
-    </div>
+<div class="module-content">
+    <iframe src="{{ module.iframe_src }}" width="100%" height="600px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </div>
+<div class="module-navigation">
+    {% if module.id > 1 %}
+        <a href="{{ url_for('module', module_id=module.id - 1) }}" class="btn btn-secondary">Módulo Anterior</a>
+    {% endif %}
+    {% if module.id < modules_data|length %}
+        <a href="{{ url_for('module', module_id=module.id + 1) }}" class="btn btn-primary">Próximo Módulo</a>
+    {% else %}
+        <a href="{{ url_for('congratulations') }}" class="btn btn-success">Finalizar e ver Certificado</a>
+    {% endif %}
+    </div>
+
 {% endblock %}
