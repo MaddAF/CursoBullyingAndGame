@@ -67,7 +67,7 @@ def gerar_certificado(nome_participante, cpf_usuario):
     desenho.text(position_nome, texto_nome, font=fonte_nome, fill=cor_fonte_RGB_Nome)
     
     linhas_texto_normal = textwrap.wrap(texto_normal_template, width=72)
-    output_texto_normal = join(linhas_texto_normal)
+    output_texto_normal = "\n".join(linhas_texto_normal)
     desenho.text(position_texto_Normal, output_texto_normal, font=fonte_normal, fill=cor_fonte_RGB_Normal)
     
     # --- 5. SALVAR EM MEMÓRIA ---

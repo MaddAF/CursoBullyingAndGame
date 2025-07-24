@@ -78,4 +78,13 @@
 
     <a href="{{ url_for('index') }}" class="cta-button">Voltar ao Início</a>
 </div>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 {% endblock %}
