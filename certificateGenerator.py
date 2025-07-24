@@ -33,7 +33,7 @@ def gerar_certificado(nome_participante, cpf_usuario):
     
     tamanho_fonte_Nome = 150
     cor_fonte_RGB_Nome = (43, 121, 253)
-    position_nome = (485, 700)
+    position_nome = (485, 630)
     nameFont_path = os.path.join(base_dir, "static/fonts/Handjet/static/Handjet-Medium.ttf")
 
     tamanho_fonte_Normal = 35
@@ -66,7 +66,7 @@ def gerar_certificado(nome_participante, cpf_usuario):
 
     desenho.text(position_nome, texto_nome, font=fonte_nome, fill=cor_fonte_RGB_Nome)
     
-    linhas_texto_normal = textwrap.wrap(texto_normal_template, width=72)
+    linhas_texto_normal = textwrap.wrap(texto_normal_template, width=40)
     output_texto_normal = "\n".join(linhas_texto_normal)
     desenho.text(position_texto_Normal, output_texto_normal, font=fonte_normal, fill=cor_fonte_RGB_Normal)
     
