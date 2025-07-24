@@ -26,7 +26,7 @@ def add_header(response):
 @app.context_processor
 def inject_user_and_cache_buster():
     user_id = session.get('user_id')
-    user = User.query.get(user_id) if user_id else None
+    user = db.session.get(User, user_id) if user_id else None
     return dict(user=user, cache_buster=int(time.time()))
 
 @app.route("/")
@@ -139,7 +139,7 @@ def admin():
         flash("Por favor, faça o login para acessar esta página.")
         return redirect(url_for("login"))
     
-    user = User.query.get(session.get("user_id"))
+    user = db.session.get(User, session.get("user_id"))
     if not user or not user.is_admin:
         flash("Acesso não autorizado.")
         return redirect(url_for("home"))
@@ -158,7 +158,7 @@ def download_certificate():
     if "user_id" not in session:
         return redirect(url_for("login"))
     
-    user = User.query.get(session.get("user_id"))
+    user = db.session.get(User, session.get("user_id"))
     if not user:
         return redirect(url_for("login"))
 
