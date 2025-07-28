@@ -3,5 +3,3 @@ flask_sqlalchemy
 psycopg2-binary
 waitress
 Pillow
-requests
-beautifulsoup4
