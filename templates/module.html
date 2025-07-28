@@ -24,6 +24,12 @@
     .btn-info {
         background-color: #17a2b8;
     }
+    .btn-warning {
+        background-color: #ffc107;
+    }
+    .btn-danger {
+        background-color: #dc3545;
+    }
     .btn:hover {
         transform: scale(1.05);
     }
@@ -38,7 +44,10 @@
 
 <div class="module-header" style="text-align: center; margin-bottom: 20px;">
     <h1>{{ module.title }}</h1>
-    <button id="readAloudBtn" class="btn btn-info">Ler em Voz Alta 🔊</button>
+    <button id="playBtn" class="btn btn-info">Ler em Voz Alta 🔊</button>
+    <button id="pauseBtn" class="btn btn-warning">Pausar ⏸</button>
+    <button id="resumeBtn" class="btn btn-info">Continuar ▶️</button>
+    <button id="stopBtn" class="btn btn-danger">Parar ⏹️</button>
 </div>
 
 <div class="module-content">
@@ -57,10 +66,25 @@
 </div>
 
 <script>
-    document.getElementById('readAloudBtn').addEventListener('click', function() {
-        var text = document.querySelector('h1').innerText;
-        var utterance = new SpeechSynthesisUtterance(text);
+    var utterance = new SpeechSynthesisUtterance();
+    var moduleText = {{ module_text|tojson }};
+
+    document.getElementById('playBtn').addEventListener('click', function() {
+        utterance.text = moduleText;
+        speechSynthesis.cancel(); // Stop any previous speech
         speechSynthesis.speak(utterance);
+    });
+
+    document.getElementById('pauseBtn').addEventListener('click', function() {
+        speechSynthesis.pause();
+    });
+
+    document.getElementById('resumeBtn').addEventListener('click', function() {
+        speechSynthesis.resume();
+    });
+
+    document.getElementById('stopBtn').addEventListener('click', function() {
+        speechSynthesis.cancel();
     });
 </script>
 {% endblock %}

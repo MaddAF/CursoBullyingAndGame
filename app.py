@@ -5,6 +5,8 @@ import models
 import os
 import time
 from certificateGenerator import gerar_certificado, gerarNomeArquivo
+import requests
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
@@ -23,6 +25,15 @@ modules_data = [
     {"id": 4, "title": "Módulo 4: Cyber-Segurança", "iframe_src": "https://gamma.app/embed/3mi05q4zcdj05pj"},
     {"id": 5, "title": "Módulo 5: Missão Final", "iframe_src": "https://gamma.app/embed/gjxal9c1opw1z7h"},
 ]
+
+def get_module_text(url):
+    try:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        return soup.get_text()
+    except Exception as e:
+        print(f"Error fetching module text: {e}")
+        return ""
 
 @app.after_request
 def add_header(response):
@@ -119,7 +130,8 @@ def module(module_id):
     module_info = next((m for m in modules_data if m['id'] == module_id), None)
 
     if module_info:
-        return render_template("module.html", module=module_info, modules_data=modules_data)
+        module_text = get_module_text(module_info['iframe_src'])
+        return render_template("module.html", module=module_info, modules_data=modules_data, module_text=module_text)
     else:
         return "Módulo não encontrado", 404
 
