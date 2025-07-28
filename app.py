@@ -7,6 +7,12 @@ import time
 from certificateGenerator import gerar_certificado, gerarNomeArquivo
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
@@ -28,11 +34,27 @@ modules_data = [
 
 def get_module_text(url):
     try:
-        response = requests.get(url)
-        soup = BeautifulSoup(response.content, 'html.parser')
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        
+        service = Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service, options=options)
+        
+        driver.get(url)
+        
+        # Wait for the main content to be loaded. This might need adjustment.
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "gamma-container"))
+        )
+        
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+        driver.quit()
+        
         return soup.get_text()
     except Exception as e:
-        print(f"Error fetching module text: {e}")
+        print(f"Error fetching module text with Selenium: {e}")
         return ""
 
 @app.after_request
