@@ -33,16 +33,17 @@
     }
 </style>
 
-<div class="module-content">
-    <iframe src="{{ module.iframe_src }}" width="100%" height="600px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-</div>
-
 <div class="audio-player" style="text-align: center; margin-top: 20px;">
     <audio controls>
         <source src="{{ url_for('module_audio', module_id=module.id) }}" type="audio/mpeg">
         Seu navegador não suporta o elemento de áudio.
     </audio>
 </div>
+
+<div class="module-content">
+    <iframe src="{{ module.iframe_src }}" width="100%" height="600px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
+
 
 <div class="module-navigation" style="text-align: center; margin-top: 20px;">
     {% if module.id > 1 %}

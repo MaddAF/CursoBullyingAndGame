@@ -76,7 +76,7 @@ def gerar_certificado(nome_participante, cpf_usuario):
     texto_normal_template = (
         f"Dono(a) do cpf: {cpf_usuario}"
         " Completou o curso online: “Combata o bullying com conhecimento. "
-        "Torne-se um agente de mudança!” com carga horária de 20 minutos."
+        "Torne-se um agente de mudança!” com carga horária de 4 horas."
     )
 
     # --- 4. GERAÇÃO DA IMAGEM ---

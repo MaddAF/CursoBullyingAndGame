@@ -227,3 +227,9 @@ button:hover {
     background-color: none;
     color: #fff;
 }
+
+.module-navigation {
+display: flex;
+flex-direction: row;
+overflow-x: scroll;
+}
