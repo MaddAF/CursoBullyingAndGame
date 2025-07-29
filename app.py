@@ -5,6 +5,8 @@ import models
 import os
 import time
 from certificateGenerator import gerar_certificado, gerarNomeArquivo
+from gtts import gTTS
+from io import BytesIO
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
@@ -122,6 +124,29 @@ def module(module_id):
         return render_template("module.html", module=module_info, modules_data=modules_data)
     else:
         return "Módulo não encontrado", 404
+
+@app.route("/module/<int:module_id>/audio")
+def module_audio(module_id):
+    if "user_id" not in session:
+        return redirect(url_for('login'))
+
+    module_info = next((m for m in modules_data if m['id'] == module_id), None)
+
+    if not module_info:
+        return "Módulo não encontrado", 404
+
+    try:
+        with open(f"modules_text/module_{module_id}.txt", "r") as f:
+            text = f.read()
+    except FileNotFoundError:
+        return "Arquivo de texto do módulo não encontrado", 404
+
+    audio_fp = BytesIO()
+    tts = gTTS(text=text, lang='pt-br')
+    tts.write_to_fp(audio_fp)
+    audio_fp.seek(0)
+
+    return send_file(audio_fp, mimetype="audio/mpeg", as_attachment=False)
 
 @app.route("/admin")
 def admin():
