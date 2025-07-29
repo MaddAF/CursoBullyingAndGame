@@ -231,5 +231,6 @@ button:hover {
 .module-navigation {
 display: flex;
 flex-direction: row;
-overflow-x: scroll;
+justify-content: space-between;
+align-items: center;
 }
