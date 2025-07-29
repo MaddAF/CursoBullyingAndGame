@@ -222,3 +222,8 @@ button:hover {
         overflow: hidden;
     }
 }
+
+.audio-player {
+    background-color: none;
+    color: #fff;
+}
